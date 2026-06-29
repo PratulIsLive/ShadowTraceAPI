@@ -1,5 +1,5 @@
 # ShadowTrace API
-
+*A REST API for managing digital crime investigations.*
 > **Where Clues Connect.**
 
 ShadowTrace API is a backend project built to manage crime investigation cases digitally. It allows investigators to keep track of cases, suspects, evidence, and case assignments through a secure REST API.
