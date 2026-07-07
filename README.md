@@ -1,38 +1,76 @@
 # ShadowTrace API
-*A REST API for managing digital crime investigations.*
+
 > **Where Clues Connect.**
 
-ShadowTrace API is a backend project built to manage crime investigation cases digitally. It allows investigators to keep track of cases, suspects, evidence, and case assignments through a secure REST API.
+ShadowTrace API is a backend REST API that I built to improve my understanding of ASP.NET Core Web API and backend development.
 
-The project is built using ASP.NET Core and PostgreSQL, with JWT-based authentication for secure access. It has been developed as a hands-on learning project to apply backend development concepts such as authentication, database design, Entity Framework Core, and RESTful API development.
+The project is based on a simple idea of managing investigation cases digitally. It provides APIs to manage users, investigation cases, suspects, evidence, case assignments, and activity logs while keeping everything secured using JWT authentication.
+
+While working on this project, I tried to organize the code in a clean way by separating controllers, services, repositories, DTOs, and entities instead of writing everything in one place.
+
+---
 
 ## Tech Stack
 
-* ASP.NET Core Web API
-* C#
-* PostgreSQL
-* Entity Framework Core
-* JWT Authentication
-* BCrypt Password Hashing
-* REST APIs
-* Dependency Injection
+- ASP.NET Core Web API
+- C#
+- PostgreSQL
+- Entity Framework Core
+- JWT Authentication
+- BCrypt Password Hashing
+- REST API
+- Dependency Injection
 
-## Current Features
+---
 
-* User Registration
-* User Login with JWT Authentication
-* Password Hashing using BCrypt
-* Role-based User Management
-* Investigation Case Management
-* Suspect Management
-* Evidence Management
-* Activity Logging
-* PostgreSQL Database Integration
-* Global Exception Handling
+## Features
 
-## Project Status
+- User Registration
+- User Login
+- JWT Authentication
+- Role-Based Authorization (Admin, Supervisor, Investigator)
+- Investigation Case Management
+- Suspect Management
+- Evidence Management
+- Case-Suspect Assignment
+- Activity Logging
+- Global Exception Handling
+- File Upload Support
+- PostgreSQL Database Integration
 
-This project is currently under development. New features and improvements are being added as the project grows.
+---
+
+## Project Structure
+
+```
+Controllers
+Services
+Repositories
+Interfaces
+DTOs
+Entities
+Middleware
+Extensions
+Data
+```
+
+---
+
+## What I Practiced
+
+This project helped me understand and practice:
+
+- Building REST APIs
+- JWT Authentication
+- Role-Based Authorization
+- Entity Framework Core
+- Repository Pattern
+- Dependency Injection
+- Exception Handling
+- File Upload APIs
+- PostgreSQL Integration
+
+---
 
 ## Author
 
