@@ -2,7 +2,7 @@
 
 > **Where Clues Connect. A REST API for managing digital crime investigations.**
 
-ShadowTrace API is a backend REST API that I built to improve my understanding of ASP.NET Core Web API and backend development.
+ShadowTrace API is a backend REST API that I built as a hands-on project to practice backend development with ASP.NET Core and PostgreSQL.
 
 The project is based on a simple idea of managing investigation cases digitally. It provides APIs to manage users, investigation cases, suspects, evidence, case assignments, and activity logs while keeping everything secured using JWT authentication.
 
