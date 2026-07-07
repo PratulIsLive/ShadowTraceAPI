@@ -4,9 +4,9 @@
 
 ShadowTrace API is a backend REST API that I built as a hands-on project to practice backend development with ASP.NET Core and PostgreSQL.
 
-The project is based on a simple idea of managing investigation cases digitally. It provides APIs to manage users, investigation cases, suspects, evidence, case assignments, and activity logs while keeping everything secured using JWT authentication.
+The project allows investigators to manage cases, suspects, evidence, user roles, case assignments, and activity logs through secure REST APIs. It provides APIs to manage users, investigation cases, suspects, evidence, case assignments, and activity logs while keeping everything secured using JWT authentication.
 
-While working on this project, I tried to organize the code in a clean way by separating controllers, services, repositories, DTOs, and entities instead of writing everything in one place.
+While building this project, I organized the code using controllers, services, repositories, DTOs, and entities to keep the application clean and easier to maintain.
 
 ---
 
