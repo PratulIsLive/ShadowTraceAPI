@@ -4,6 +4,7 @@ using ShadowTraceAPI.DTOs;
 using ShadowTraceAPI.Entities;
 using ShadowTraceAPI.Enums;
 using ShadowTraceAPI.Interfaces;
+using ShadowTraceAPI.Exceptions;
 
 namespace ShadowTraceAPI.Services;
 
@@ -31,7 +32,7 @@ public class AuthService : IAuthService
 
         if (existingUser is not null)
         {
-            throw new Exception("Email already exists.");
+            throw new ConflictException("Email already exists.");
         }
 
         var user = new User
@@ -56,12 +57,12 @@ public class AuthService : IAuthService
 
         if (user is null)
         {
-            throw new Exception("Invalid email or password.");
+            throw new UnauthorizedException("Invalid email or password.");
         }
 
         if (!user.IsActive)
         {
-            throw new Exception("User account is inactive.");
+            throw new UnauthorizedException("User account is inactive.");
         }
 
         var isPasswordValid = _passwordService.VerifyPassword(
@@ -70,7 +71,7 @@ public class AuthService : IAuthService
 
         if (!isPasswordValid)
         {
-            throw new Exception("Invalid email or password.");
+            throw new UnauthorizedException("Invalid email or password.");
         }
 
         var token = _jwtService.GenerateToken(user);

@@ -3,18 +3,17 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ShadowTraceAPI.Data;
-using ShadowTraceAPI.Services;
+using ShadowTraceAPI.Extensions;
 using ShadowTraceAPI.Interfaces;
 using ShadowTraceAPI.Middleware;
+using ShadowTraceAPI.Repositories;
+using ShadowTraceAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add services
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddOpenApi();
 
 // Database
@@ -22,13 +21,51 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Application Services
+// =====================================================
+// Dependency Injection
+// =====================================================
+
+// Utilities
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<ActivityLogger>();
+
+// Current User
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+// Authentication
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// Case
+builder.Services.AddScoped<ICaseRepository, CaseRepository>();
+builder.Services.AddScoped<CaseService>();
+
+// Evidence
+builder.Services.AddScoped<IEvidenceRepository, EvidenceRepository>();
+builder.Services.AddScoped<IEvidenceService, EvidenceService>();
+
+// Suspect
+builder.Services.AddScoped<ISuspectRepository, SuspectRepository>();
+builder.Services.AddScoped<ISuspectService, SuspectService>();
+
+// Case-Suspect
+builder.Services.AddScoped<ICaseSuspectRepository, CaseSuspectRepository>();
+builder.Services.AddScoped<ICaseSuspectService, CaseSuspectService>();
+
+// Activity
+builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
+
+// Dashboard
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+
+// =====================================================
 // JWT Authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+// =====================================================
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -51,7 +88,9 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// =====================================================
+// Middleware
+// =====================================================
 
 if (app.Environment.IsDevelopment())
 {
@@ -59,10 +98,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
+
 app.UseHttpsRedirection();
 
-// Authentication & Authorization
+app.UseStaticFiles();
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

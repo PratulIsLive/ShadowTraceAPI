@@ -22,6 +22,8 @@ public class Suspect
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    public int RiskScore { get; set; }
+
     // Navigation Property
     public ICollection<CaseSuspect> CaseSuspects { get; set; } = new List<CaseSuspect>();
 }

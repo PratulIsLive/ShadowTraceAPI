@@ -26,4 +26,13 @@ public class Evidence
 
     public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 
+    public string EvidenceNumber { get; set; } = string.Empty;
+
+    public string StorageLocation { get; set; } = string.Empty;
+
+    public string CurrentHolder { get; set; } = string.Empty;
+
+    public EvidenceStatus Status { get; set; }
+
+
 }

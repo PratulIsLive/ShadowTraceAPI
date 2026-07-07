@@ -41,8 +41,16 @@ namespace ShadowTraceAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("EntityName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("InvestigationCaseId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Module")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("PerformedById")
                         .HasColumnType("integer");
@@ -76,6 +84,9 @@ namespace ShadowTraceAPI.Migrations
 
                     b.Property<int>("InvestigatorId")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("IsCurrentAssignment")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("UnassignedAt")
                         .HasColumnType("timestamp with time zone");
@@ -112,7 +123,15 @@ namespace ShadowTraceAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CurrentHolder")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("EvidenceNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -125,6 +144,13 @@ namespace ShadowTraceAPI.Migrations
 
                     b.Property<int>("InvestigationCaseId")
                         .HasColumnType("integer");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("StorageLocation")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("StoragePath")
                         .IsRequired()
@@ -142,6 +168,8 @@ namespace ShadowTraceAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EvidenceNumber");
+
                     b.HasIndex("InvestigationCaseId");
 
                     b.HasIndex("UploadedById");
@@ -157,6 +185,9 @@ namespace ShadowTraceAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("AssignedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("CaseNumber")
                         .IsRequired()
                         .HasColumnType("text");
@@ -167,12 +198,25 @@ namespace ShadowTraceAPI.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("CrimeCategory")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("ExpectedClosureDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<DateTime>("IncidentDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsColdCase")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -199,6 +243,11 @@ namespace ShadowTraceAPI.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CaseNumber")
+                        .IsUnique();
+
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("InvestigationCases");
                 });
@@ -240,7 +289,12 @@ namespace ShadowTraceAPI.Migrations
                     b.Property<int>("RiskLevel")
                         .HasColumnType("integer");
 
+                    b.Property<int>("RiskScore")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PhoneNumber");
 
                     b.ToTable("Suspects");
                 });
@@ -260,12 +314,19 @@ namespace ShadowTraceAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastLoginAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -275,6 +336,9 @@ namespace ShadowTraceAPI.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -290,7 +354,7 @@ namespace ShadowTraceAPI.Migrations
                     b.HasOne("ShadowTraceAPI.Entities.User", "PerformedBy")
                         .WithMany("ActivityLogs")
                         .HasForeignKey("PerformedById")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("InvestigationCase");
@@ -309,7 +373,7 @@ namespace ShadowTraceAPI.Migrations
                     b.HasOne("ShadowTraceAPI.Entities.User", "Investigator")
                         .WithMany("CaseAssignments")
                         .HasForeignKey("InvestigatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("InvestigationCase");
@@ -347,12 +411,23 @@ namespace ShadowTraceAPI.Migrations
                     b.HasOne("ShadowTraceAPI.Entities.User", "UploadedBy")
                         .WithMany("UploadedEvidence")
                         .HasForeignKey("UploadedById")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("InvestigationCase");
 
                     b.Navigation("UploadedBy");
+                });
+
+            modelBuilder.Entity("ShadowTraceAPI.Entities.InvestigationCase", b =>
+                {
+                    b.HasOne("ShadowTraceAPI.Entities.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("ShadowTraceAPI.Entities.InvestigationCase", b =>

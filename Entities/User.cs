@@ -18,6 +18,10 @@ public class User
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    public string EmployeeId { get; set; } = string.Empty;
+
+    public DateTime? LastLoginAt { get; set; }
+
     // Navigation Properties
     public ICollection<CaseAssignment> CaseAssignments { get; set; } = new List<CaseAssignment>();
 

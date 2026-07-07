@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShadowTraceAPI.DTOs;
 using ShadowTraceAPI.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShadowTraceAPI.Controllers;
 
@@ -15,6 +16,8 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    
+    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
@@ -26,6 +29,8 @@ public class AuthController : ControllerBase
         });
     }
 
+    
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<ActionResult<LoginResponse>> Login(LoginRequest request)
     {

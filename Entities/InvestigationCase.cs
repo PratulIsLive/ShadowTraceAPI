@@ -30,6 +30,18 @@ public class InvestigationCase
 
     public bool IsDeleted { get; set; } = false;
 
+    public string CrimeCategory { get; set; } = string.Empty;
+
+    public DateTime? AssignedAt { get; set; }
+
+    public DateTime? ExpectedClosureDate { get; set; }
+
+    public bool IsColdCase { get; set; } = false;
+
+    public int CreatedById { get; set; }
+
+    public User CreatedBy { get; set; } = null!;
+
     public ICollection<CaseAssignment> CaseAssignments { get; set; } = new List<CaseAssignment>();
 
     public ICollection<Evidence> Evidence { get; set; } = new List<Evidence>();

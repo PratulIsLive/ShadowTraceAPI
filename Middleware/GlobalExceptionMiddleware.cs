@@ -1,5 +1,6 @@
 using System.Text.Json;
 using ShadowTraceAPI.DTOs;
+using ShadowTraceAPI.Exceptions;
 
 namespace ShadowTraceAPI.Middleware;
 
@@ -21,12 +22,20 @@ public class GlobalExceptionMiddleware
         catch (Exception ex)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+            context.Response.StatusCode = ex switch
+            {
+                ValidationException => StatusCodes.Status400BadRequest,
+                UnauthorizedException => StatusCodes.Status401Unauthorized,
+                NotFoundException => StatusCodes.Status404NotFound,
+                ConflictException => StatusCodes.Status409Conflict,
+                _ => StatusCodes.Status500InternalServerError
+            };
 
             var response = new ErrorResponse
             {
                 StatusCode = context.Response.StatusCode,
-                Message = ex.Message
+                Message = ex.InnerException?.Message ?? ex.Message
             };
 
             var json = JsonSerializer.Serialize(response);

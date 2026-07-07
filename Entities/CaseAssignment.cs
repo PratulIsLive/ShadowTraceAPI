@@ -17,4 +17,6 @@ public class CaseAssignment
     public DateTime? UnassignedAt { get; set; }
 
     public string AssignmentReason { get; set; } = string.Empty;
+
+    public bool IsCurrentAssignment { get; set; } = true;
 }
