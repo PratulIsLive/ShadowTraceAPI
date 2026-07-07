@@ -2,11 +2,11 @@
 
 > **Where Clues Connect. A REST API for managing digital crime investigations.**
 
-ShadowTrace API is a backend REST API that I built as a hands-on project to practice backend development with ASP.NET Core and PostgreSQL.
+ShadowTrace API is a backend REST API that I built as a hands-on project to practice backend development using ASP.NET Core and PostgreSQL.
 
-The project allows investigators to manage cases, suspects, evidence, user roles, case assignments, and activity logs through secure REST APIs. It provides APIs to manage users, investigation cases, suspects, evidence, case assignments, and activity logs while keeping everything secured using JWT authentication.
+The project allows investigators to manage users, investigation cases, suspects, evidence, case assignments, and activity logs through secure REST APIs. Authentication and role-based authorization are implemented using JWT to protect different operations based on user roles.
 
-While building this project, I organized the code using controllers, services, repositories, DTOs, and entities to keep the application clean and easier to maintain.
+While building this project, I organized the code using controllers, services, repositories, DTOs, and entities to keep the application clean, modular, and easier to maintain.
 
 ---
 
@@ -42,7 +42,7 @@ While building this project, I organized the code using controllers, services, r
 
 ## Project Structure
 
-```
+```text
 Controllers
 Services
 Repositories
@@ -58,7 +58,7 @@ Data
 
 ## What I Practiced
 
-This project helped me understand and practice:
+Building this project helped me gain practical experience with:
 
 - Building REST APIs
 - JWT Authentication
@@ -66,7 +66,7 @@ This project helped me understand and practice:
 - Entity Framework Core
 - Repository Pattern
 - Dependency Injection
-- Exception Handling
+- Global Exception Handling
 - File Upload APIs
 - PostgreSQL Integration
 
