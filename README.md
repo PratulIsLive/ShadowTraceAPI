@@ -1,6 +1,6 @@
 # ShadowTrace API
 
-> **Where Clues Connect.**
+> **Where Clues Connect. A REST API for managing digital crime investigations.**
 
 ShadowTrace API is a backend REST API that I built to improve my understanding of ASP.NET Core Web API and backend development.
 
