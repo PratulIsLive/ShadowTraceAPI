@@ -74,4 +74,4 @@ This project helped me understand and practice:
 
 ## Author
 
-**Pratul Sharma**
+**Pratul Kumar**
