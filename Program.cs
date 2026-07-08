@@ -16,7 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 // =====================================================
 
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // =====================================================
 // Database
@@ -88,7 +90,6 @@ builder.Services
         };
     });
 
-// Authorization
 builder.Services.AddAuthorization();
 
 // =====================================================
@@ -98,12 +99,23 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // =====================================================
+// Swagger
+// =====================================================
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+// =====================================================
 // Middleware
 // =====================================================
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
-app.UseHttpsRedirection();
+// Only redirect HTTPS while developing locally.
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseStaticFiles();
 
