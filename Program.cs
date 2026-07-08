@@ -11,12 +11,17 @@ using ShadowTraceAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
+// =====================================================
+// Add Services
+// =====================================================
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApi();
 
+// =====================================================
 // Database
+// =====================================================
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -86,16 +91,15 @@ builder.Services
 // Authorization
 builder.Services.AddAuthorization();
 
+// =====================================================
+// Build Application
+// =====================================================
+
 var app = builder.Build();
 
 // =====================================================
 // Middleware
 // =====================================================
-
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
 
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
