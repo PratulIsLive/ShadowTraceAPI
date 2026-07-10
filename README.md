@@ -2,11 +2,11 @@
 
 > **Where Clues Connect. A REST API for managing digital crime investigations.**
 
-ShadowTrace API is a backend REST API that I built as a hands-on project to practice backend development using ASP.NET Core and PostgreSQL.
+ShadowTrace API is a backend REST API that I built to practice backend development using ASP.NET Core and PostgreSQL while following a clean and modular project structure.
 
-The project allows investigators to manage users, investigation cases, suspects, evidence, case assignments, and activity logs through secure REST APIs. Authentication and role-based authorization are implemented using JWT to protect different operations based on user roles.
+The application allows investigators to manage investigation cases, suspects, evidence, case assignments, and activity logs through secure REST APIs. Authentication is implemented using JWT, and role-based authorization ensures that different users can access only the operations they are permitted to perform.
 
-While building this project, I organized the code using controllers, services, repositories, DTOs, and entities to keep the application clean, modular, and easier to maintain.
+While building this project, I organized the application using controllers, services, repositories, DTOs, entities, and middleware to keep the code clean, maintainable, and easy to extend.
 
 ---
 
@@ -18,6 +18,8 @@ While building this project, I organized the code using controllers, services, r
 - Entity Framework Core
 - JWT Authentication
 - BCrypt Password Hashing
+- Docker
+- Swagger / OpenAPI
 - REST API
 - Dependency Injection
 
@@ -34,9 +36,14 @@ While building this project, I organized the code using controllers, services, r
 - Evidence Management
 - Case-Suspect Assignment
 - Activity Logging
-- Global Exception Handling
-- File Upload Support
+- Dashboard Statistics
+- Search, Filtering, Sorting and Pagination
+- Secure File Upload
+- Global Exception Handling Middleware
 - PostgreSQL Database Integration
+- Swagger API Documentation
+- Docker Support
+- Live Deployment on Render
 
 ---
 
@@ -49,9 +56,11 @@ Repositories
 Interfaces
 DTOs
 Entities
+Enums
 Middleware
 Extensions
 Data
+Migrations
 ```
 
 ---
@@ -60,7 +69,7 @@ Data
 
 Building this project helped me gain practical experience with:
 
-- Building REST APIs
+- Designing REST APIs
 - JWT Authentication
 - Role-Based Authorization
 - Entity Framework Core
@@ -68,7 +77,11 @@ Building this project helped me gain practical experience with:
 - Dependency Injection
 - Global Exception Handling
 - File Upload APIs
+- Search, Filtering, Sorting and Pagination
+- Dashboard Analytics
+- Docker
 - PostgreSQL Integration
+- Deploying an ASP.NET Core API on Render
 
 ---
 
