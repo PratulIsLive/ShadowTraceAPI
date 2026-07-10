@@ -85,6 +85,12 @@ Building this project helped me gain practical experience with:
 
 ---
 
+## Deployment
+
+The API is deployed on Render and can be tested using both Swagger and Postman.
+
+---
+
 ## Author
 
 **Pratul Kumar**
